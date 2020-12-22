@@ -1,0 +1,16 @@
+# Crie um arquivo com a extensão .fx
+# Adicione as tags e os sinais dentro
+# Rode em seu terminal linux 'foxy -r arquivo.fx'
+# Veja a mágica acontecer!
+
+(use):
+(apt):  
+(get):
+(snap):
+(move):
+(make):
+(get-i):
+(remove):
+(flatpak):
+(container):
+(run-container):

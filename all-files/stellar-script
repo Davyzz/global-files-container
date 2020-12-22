@@ -1,0 +1,87 @@
+#!/bin/bash
+
+###) Author: David Lima
+###) Version: 1.0
+###) Description: A simple shell script to automatize the Ubuntu Minimal configuration
+
+
+
+reset && cd ~/
+sudo apt -y update
+sudo apt -y dist-upgrade
+sudo apt -y clean
+
+echo '.'; sleep 1; echo '..'; sleep 1; echo '...'; sleep 1; echo '....'; sleep 1; echo '.....'; sleep 1; 
+
+sudo apt -y install xorg lightdm gnome gnome-terminal curl git tree --no-install-recommends
+curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt -y install nodejs --no-install-recommends
+sudo npm install nativefier -g
+sudo snap install chromium
+sudo snap install nordpass
+
+mkdir ~/WebApps && cd ~/WebApps
+nativefier --name "Github"  "https://github.com"
+nativefier --name "Youtube" "https://youtube.com"
+nativefier --name "Gitpod"  "https://gitpod.io/workspaces/"
+nativefier --name "Gmail"   "https://mail.google.com/mail/u/0/#inbox"
+
+mkdir /usr/share/applications/
+echo -e '''
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Github
+Icon=/home/david/WebApps/Github-linux-x64/resources/app/icon.png
+Terminal=false
+Exec=/home/david/WebApps/Github-linux-x64/Github
+Categories=Development
+''' | sudo tee -a /usr/share/applications/Github.desktop
+echo -e '''
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Youtube
+Icon=/home/david/WebApps/Youtube-linux-x64/resources/app/icon.png
+Terminal=false
+Exec=/home/david/WebApps/Youtube-linux-x64/Youtube
+Categories=Development
+''' | sudo tee -a /usr/share/applications/Youtube.desktop
+echo -e '''
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Gitpod
+Icon=/home/david/WebApps/Gitpod-linux-x64/resources/app/icon.png
+Terminal=false
+Exec=/home/david/WebApps/Gitpod-linux-x64/Gitpod
+Categories=Development
+''' | sudo tee -a /usr/share/applications/Gitpod.desktop
+echo -e '''
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Gmail
+Icon=/home/david/WebApps/Gmail-linux-x64/resources/app/icon.png
+Terminal=false
+Exec=/home/david/WebApps/Gmail-linux-x64/Gmail
+Categories=Development
+''' | sudo tee -a /usr/share/applications/Gmail.desktop
+
+git clone https://github.com/EliverLara/Nordic.git
+git clone https://github.com/zayronxio/Zafiro-icons.git
+sudo mv ~/Nordic /usr/share/themes/
+sudo mv ~/Zafiro-icons /usr/share/icons/
+gsettings set org.gnome.desktop.interface gtk-theme "Nordic"
+gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
+gsettings set org.gnome.desktop.interface icon-theme "Zafiro-icons"
+
+
+
+######] GNOME DOCK APPS
+##] chromium
+##] sublime
+##] youtube
+##] gitpod
+##] github
+##] gmail
